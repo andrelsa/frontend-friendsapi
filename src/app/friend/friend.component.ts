@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 export class Friend {
   constructor(
@@ -22,9 +23,12 @@ export class FriendComponent implements OnInit {
 
   // @ts-ignore
   friends: Friend[];
+  // @ts-ignore
+  closeResult: string;
 
   constructor(
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private modalService: NgbModal
   ) {
   }
 
@@ -40,6 +44,25 @@ export class FriendComponent implements OnInit {
         this.friends = response;
       }
     );
+  }
+
+  // tslint:disable-next-line:typedef
+  open(content: any) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 
 }

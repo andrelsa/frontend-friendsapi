@@ -1,6 +1,6 @@
 <div class="container">
   <div class="border">
-    <button class="btn btn-md btn-outline-primary">
+    <button class="btn btn-md btn-outline-primary" (click)="open(content)">
       <i class="fa fa-user"></i>New Friend
     </button>
   </div>
@@ -39,3 +39,49 @@
     </tbody>
   </table>
 </div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">New Friend</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label for="firstname">Firstname</label>
+        <div class="input-group">
+          <input id="firstname" class="form-control" >
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="firstname">Lastname</label>
+        <div class="input-group">
+          <input id="lastname" name="lastname" class="form-control" ngModel>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="lastname">Department</label>
+        <div class="input-group">
+          <input id="department" name="department" class="form-control" ngModel>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="lastname">Email</label>
+        <div class="input-group">
+          <input id="email" name="email" class="form-control" ngModel>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="lastname">Country</label>
+        <div class="input-group">
+          <input id="country" name="country" class="form-control" ngModel>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+  </div>
+</ng-template>
